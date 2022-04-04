@@ -8,11 +8,8 @@ services:
     image: quay.io/keycloak/keycloak:17.0.1
     volumes:
       - /keycloak:/usr/keycloak
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KEYCLOAK_USER=user
-      - KEYCLOAK_PASSWORD=user
+    env_file:
+      - ./keycloak/.env
     command: start-dev
 
   frontend:
