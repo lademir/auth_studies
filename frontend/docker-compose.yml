@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: FrontEnd
+    ports:
+      - 3000:3000
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/frontend
+    restart: on-failure
