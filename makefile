@@ -1,8 +1,7 @@
-make:
-	docker-compose up
-d:
-	docker-compose up -d
-reset:
-	docker-compose stop && docker-compose up -d
-stop:
-	docker-compose stop
+help: 
+	@echo "kc : Run keycloak container"
+	@echo "kcstop : Stop keycloak container"
+kc:
+	cd keycloak && docker-compose up -d
+kcstop:
+	cd keycloak && docker-compose stop
