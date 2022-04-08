@@ -3,7 +3,6 @@ import KeycloakProvider from "next-auth/providers/keycloak";
 import { addRoles, addTokens, finishSession } from "../../../utils/keycloak";
 
 
-
 export default NextAuth({
 	// Configure one or more authentication providers
 	providers: [
@@ -24,7 +23,7 @@ export default NextAuth({
 			if(account?.access_token){
         console.log('access token',account)
         
-        token.roles = await addRoles(account)
+        token.roles = addRoles(account)
         token.tokens = addTokens(account);
       }
       return Promise.resolve(token);
@@ -49,8 +48,8 @@ export default NextAuth({
       }
     }
   },
-  cookies: {
-
+  pages: {
+    signIn: '/login'
   }
 });
 

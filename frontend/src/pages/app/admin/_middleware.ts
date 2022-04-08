@@ -1,16 +1,14 @@
 import { withAuth } from "next-auth/middleware"
-import { isAdmin } from "./permission"
+import { isAdmin } from "../../../utils/keycloak"
 
-
+// Apesar do nome signIn, como aqui é um nivel de acesso, quando o callback retorna falso, redireciona para a pagina signIn
 
 export default withAuth({
-    pages:{
-        error: '/app',
-        signIn: '/app',
-        
+    pages: {
+        signIn: '/app'
     },
     callbacks: {
-        authorized: ({token, req}) => isAdmin(token, req),
+        authorized: ({token}) => isAdmin(token),
 
-    }
+    },
 })

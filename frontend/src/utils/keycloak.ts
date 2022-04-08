@@ -1,8 +1,9 @@
 import axios from "axios";
 import jwt_decode, { JwtPayload, JwtDecodeOptions } from "jwt-decode";
 import { Account } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
-export async function addRoles(account: Account) {
+export function addRoles(account: Account) {
 	const decodedToken: any = jwt_decode<JwtPayload>(
 		account.access_token as string
 	);
@@ -52,4 +53,18 @@ export function finishSession(data: { access_token: string,  refresh_token: stri
 	} catch (error) {
         return false;
     }
+}
+
+
+
+export function isAdmin(token: JWT | null) {
+    // console.log(typeof token?.roles)
+    if(Array.isArray(token?.roles)){
+        if(token?.roles.length) {
+            return token?.roles.includes('admin')
+        }
+    }
+    
+
+    return false;
 }
