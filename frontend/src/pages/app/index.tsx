@@ -20,9 +20,11 @@ const Dashboard: NextPage = () => {
             <div className="flex justify-center items-center flex-col">
                 Voce esta logado
                 <button onClick={handleLogout} className="bg-gray-400 p-5 rounded-md">LOGOUT</button>
-                <p>
-                    {JSON.stringify({ session })}
-                </p>
+                <div className="w-8/12">
+                    <p className="flex-wrap flex">
+                        {JSON.stringify({ session })}
+                    </p>
+                </div>
                 <a href="/app/admin">
                     <button>
                         Ir para pagina adm
