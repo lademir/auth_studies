@@ -1,6 +1,6 @@
 import NextAuth, { Profile } from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
-import { addRoles, addTokens, finishSession } from "../../../utils/keycloak";
+import { addRoles, addTokens, finishSession, getNewAccessTokenFromRefreshToken, isAccessTokenExpired } from "../../../utils/keycloak";
 
 
 export default NextAuth({
@@ -23,9 +23,14 @@ export default NextAuth({
 			if(account?.access_token){
         console.log('access token',account)
         
-        token.roles = addRoles(account)
+        token.roles = addRoles(account);
         token.tokens = addTokens(account);
+
+
+        console.log('Access_token expirado? ',isAccessTokenExpired(account.access_token))
       }
+
+
       return Promise.resolve(token);
 		},
     session: async ({ session, token, user }) => {
@@ -46,7 +51,7 @@ export default NextAuth({
         const out = finishSession({access_token: tokens.access_token, refresh_token: tokens.refresh_token});
         console.log(out);
       }
-    }
+    },
   },
   pages: {
     signIn: '/login'
